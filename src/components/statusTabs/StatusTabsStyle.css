@@ -1,0 +1,27 @@
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+button {
+    width: 70px;
+    height: 32px;
+    background: none;
+    border: none;
+    color: #6E6893;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+button.active {
+    border-bottom: 2px solid #25213B;
+}
+
+button:not(.active):hover {
+    opacity: 0.8;
+}

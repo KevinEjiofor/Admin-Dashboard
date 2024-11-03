@@ -1,0 +1,61 @@
+.mainDiv{
+
+
+}
+.secondDiv{
+    background: #FFFFFF;
+
+}
+.topH2{
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.94px;
+    letter-spacing: 0.1em;
+    text-align: left;
+    color: #6E6893;
+
+
+}
+.statusTab{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+}
+.custom-divider {
+    border: none;
+    border-top: 1px solid #C6C2DE;
+    width: 100%;
+    margin-top: -5px ;
+}
+
+.total {
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    text-align: right;
+    margin-top: 0;
+    color: #25213B !important;
+    margin-right: 9px;
+}
+
+.amount {
+    color: #25213B !important;
+    font-size: 18px;
+    font-weight: 700;
+    Line-height: 21.78px
+}
+.dollar{
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 50;
+    line-height: 21.78px;
+    text-align: left;
+
+}
+
+
