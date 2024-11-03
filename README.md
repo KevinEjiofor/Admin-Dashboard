@@ -59,6 +59,4 @@ A Vue.js-powered User Management Dashboard designed to streamline the management
 
 This project is designed to provide a foundational tool for effective user management and can be easily expanded for larger applications.
 
----
 
-Feel free to modify any sections based on further features or components you might add!
