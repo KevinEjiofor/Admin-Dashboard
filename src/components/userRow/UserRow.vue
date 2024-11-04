@@ -64,7 +64,7 @@ export default {
       </div>
     </td>
     <td>
-      <div>
+      <div class="user-status-container">
 
         <div
             class="user-status"
@@ -89,24 +89,39 @@ export default {
         <div class="last-login">
           <span>Paid on </span>
           <span v-if="user.paymentDate">{{ user.paymentDate }}</span>
+
           <span v-else> Dues on </span>
           <span v-if="user.paymentDueDate">{{ user.paymentDueDate }}</span>
+
         </div>
 
       </div>
-    </td>
 
-    <td>{{ user.amount }}</td>
+    </td>
+    <td>
+    <div class="user-name">
+      {{ user.amount }}
+    </div>
+      <div class="user-email"><span>
+        USD
+      </span></div>
+    </td>
     <td class="icon-cell">
+      <span class="viewMore">
+        view more
+      </span>
       <font-awesome-icon
           icon="ellipsis-v"
           @click="toggleOptions"
           style="color: #8B83BA; cursor: pointer;"
       />
       <div v-if="showDropdown" class="dropdown-menu">
+
         <span class="close-icon" @click="closeDropdown">
+
           <font-awesome-icon icon="times" class="cancel" />
         </span>
+
         <p class="editButton" @click="handleAction('Edit')">Edit</p>
         <p class="viewProfileButton" @click="handleAction('View Profile')">View Profile</p>
         <p class="activateUserButton" @click="handleAction('Activate User')">Activate User</p>

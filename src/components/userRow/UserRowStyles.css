@@ -4,7 +4,7 @@
 }
 .user-name{
     font-family: Inter, sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 500;
     line-height: 16.94px;
     text-align: left;
@@ -22,8 +22,18 @@
     color:  #6E6893;
 
 }
+.user-status-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-right: 150px;
+    padding-left: 150px;
+}
 .user-status {
-    padding: 8px 20px 8px 5px;
+    padding: 8px 5px;
+    width: 50%;
     border-radius: 20px;
     font-family: Inter, sans-serif;
     font-size: 16px;
@@ -73,9 +83,9 @@
     border: 1px solid  #b66969;
 }
 .overdue-status{
-    color: #965E00;
-    background-color: #dbbb85; /* Ensure this color is set */
-    border: 1px solid #d1b88e;
+    color: #D30000;
+    background-color: #b66969;
+    border: 1px solid  #b66969;
 }
     .dropdown-menu {
     position: absolute;
@@ -132,4 +142,12 @@
 .cancel{
     color: black;
     font-size: 20px;
+}
+.viewMore{
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.52px;
+    text-align: left;
+    margin-right: 10px;
 }
