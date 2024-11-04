@@ -35,6 +35,6 @@ header {
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem;
 }
 </style>

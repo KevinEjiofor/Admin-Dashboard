@@ -4,26 +4,26 @@ import './UserTableStyles.css';
 import { computed, ref } from 'vue';
 import { useUserStore } from '@/store/users';
 import StatusTabs from '../statusTabs/StatusTabs.vue';
-import UserRow from '../UserRow.vue';
+import UserRow from '../userRow/UserRow.vue';
 import FilterButton from "../filter/Filter.vue";
 import SearchDesign from "../search/SearchDesign.vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Make sure you import this if needed
 
 export default {
-  components: { SearchDesign, FilterButton, StatusTabs, UserRow },
+  components: { SearchDesign, FilterButton, StatusTabs, UserRow, FontAwesomeIcon },
 
   setup() {
     const userStore = useUserStore();
     const currentStatus = ref('All');
     const searchQuery = ref('');
+    const selectedUsers = ref([]);
 
-    const filteredAndSearchedUsers = computed(() => {
-      const users = userStore.filteredUsersByStatus(currentStatus.value);
-      if (!searchQuery.value) return users;
-      return users.filter(user =>
-          user.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          user.email.toLowerCase().includes(searchQuery.value.toLowerCase())
-      );
+    const filteredAndSearchedUsers = computed(() => userStore.filteredAndSearchedUsers);
+
+    // Check if all users are selected
+    const allSelected = computed(() => {
+      return filteredAndSearchedUsers.value.length > 0 &&
+          selectedUsers.value.length === filteredAndSearchedUsers.value.length;
     });
 
     const updateStatus = (status) => {
@@ -37,15 +37,42 @@ export default {
 
     const onSearchDesign = (query) => {
       searchQuery.value = query;
+      userStore.searchUsers(query);
+    };
+
+    const toggleSelectUser = (userId) => {
+      if (selectedUsers.value.includes(userId)) {
+        selectedUsers.value = selectedUsers.value.filter(id => id !== userId);
+      } else {
+        selectedUsers.value.push(userId);
+      }
+    };
+
+    const toggleSelectAll = () => {
+      if (allSelected.value) {
+        selectedUsers.value = [];
+      } else {
+        selectedUsers.value = filteredAndSearchedUsers.value.map(user => user.id);
+      }
+    };
+
+    const toggleOptions = () => {
+      // Handle the options dropdown or any action
+      console.log('Toggle options clicked');
     };
 
     return {
       currentStatus,
       filteredAndSearchedUsers,
       totalPayableAmount: computed(() => userStore.calculateTotalPayable),
+      allSelected,
       updateStatus,
       markUserAsPaid,
-      onSearchDesign
+      onSearchDesign,
+      toggleSelectUser,
+      toggleSelectAll,
+      toggleOptions,
+      selectedUsers
     };
   }
 }
@@ -67,24 +94,45 @@ export default {
           <FilterButton @filterSelected="onFilterSelected" />
           <SearchDesign @searchDesign="onSearchDesign" />
         </div>
+        <button class="payDuesButton">Pay Dues</button>
       </div>
       <table>
         <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Amount Due</th>
-          <th>Actions</th>
+        <tr class="header-row">
+          <th>
+            <input
+                type="checkbox"
+                :checked="allSelected"
+                @change="toggleSelectAll"
+            />
+          </th>
+          <th class="row">NAME</th>
+          <th class="row">USER STATUS</th>
+          <th class="row">PAYMENT STATUS</th>
+          <th class="row">AMOUNT</th>
+
+          <th >
+            <font-awesome-icon icon="ellipsis-v" @click="toggleOptions" style="color: #8B83BA; cursor: pointer;" />
+          </th>
         </tr>
         </thead>
+
         <tbody>
-        <UserRow
-            v-for="user in filteredAndSearchedUsers"
-            :key="user.id"
-            :user="user"
-            @markAsPaid="markUserAsPaid"
-        />
+        <template v-if="filteredAndSearchedUsers.length > 0">
+          <UserRow
+              v-for="user in filteredAndSearchedUsers"
+              :key="user.id"
+              :user="user"
+              :isSelected="selectedUsers.includes(user.id)"
+              @toggleSelect="toggleSelectUser(user.id)"
+              @markAsPaid="markUserAsPaid"
+          />
+        </template>
+        <template v-else>
+          <tr>
+            <td colspan="6" class="no-records">No records found</td>
+          </tr>
+        </template>
         </tbody>
       </table>
     </div>

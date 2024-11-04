@@ -1,5 +1,5 @@
 .mainDiv{
-
+    padding: 20px;
 
 }
 .secondDiv{
@@ -70,5 +70,67 @@
     flex-direction: row;
    gap: 20px;
 }
+.no-records {
+    text-align: center;
+    color: gray;
+    padding: 20px;
+}
+.payDuesButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 50px 8px 50px;
+
+    cursor: pointer;
+    white-space: nowrap;
+    border: 1px solid #8b83ba;
+    border-radius: 4px;
+
+    background: #6D5BD0;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.36px;
+    text-align: left;
+    color: #FFFFFF;
 
 
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: none;
+    padding: 10px;
+}
+
+thead tr {
+    border-bottom: 1px solid #C6C2DE;
+    border-top: 1px solid #C6C2DE;
+}
+
+tbody tr {
+    border-bottom: 2px solid #C6C2DE;
+}
+
+
+.row{
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14.52px;
+    letter-spacing: 0.05em;
+    text-align: left;
+    color:#6E6893;
+
+    padding : 10px 100px 20px 150px;
+
+}
+.icon-cell {
+    text-align: right;
+}
+.header-row {
+    background-color: #F4F2FF; /* Add this line */
+}

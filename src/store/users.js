@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import {debounce} from "lodash";
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({
@@ -14,32 +15,36 @@ export const useUserStore = defineStore('userStore', {
             { id: 9, firstName: 'Phillip', lastName: 'Saris', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Unpaid', amount: '$200', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '15/APR/2020' },
             { id: 10, firstName: 'Cheyenne', lastName: 'Ekstrom Bothman', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$150', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null }
         ],
-        filteredUsers: [],
+        currentStatus: 'All',
+        searchQuery: '',
     }),
 
     getters: {
-        filteredUsersByStatus: (state) => (paymentStatus) => {
-            return paymentStatus === 'All'
+        filteredAndSearchedUsers(state) {
+            let users = state.currentStatus === 'All'
                 ? state.users
-                : state.users.filter(user => user.paymentStatus === paymentStatus);
+                : state.users.filter(user => user.paymentStatus === state.currentStatus);
+
+            if (state.searchQuery) {
+                users = users.filter(user =>
+                    `${user.firstName} ${user.lastName}`.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+                    user.email.toLowerCase().includes(state.searchQuery.toLowerCase())
+                );
+            }
+            return users;
         },
+
         calculateTotalPayable: (state) => {
             return state.users
                 .filter(user => user.paymentStatus === 'Unpaid' || user.paymentStatus === 'Overdue')
-                .reduce((total, user) => {
-                    const amount = parseFloat(user.amount.replace('$', ''));
-                    return total + amount;
-                }, 0);
-        },
-        searchResults: (state) => {
-            return state.filteredUsers.length > 0 ? state.filteredUsers : state.users;
+                .reduce((total, user) => total + parseFloat(user.amount.replace('$', '')), 0);
         }
     },
-
     actions: {
         filterByStatus(status) {
-            this.filteredUsers = this.filteredUsersByStatus(status);
+            this.currentStatus = status;
         },
+
         markAsPaid(userId) {
             const user = this.users.find(user => user.id === userId);
             if (user && (user.paymentStatus === 'Unpaid' || user.paymentStatus === 'Overdue')) {
@@ -47,23 +52,12 @@ export const useUserStore = defineStore('userStore', {
                 user.amount = '$0';
             }
         },
-        sortUsersBy(key) {
-            this.users.sort((a, b) => {
-                if (key === 'amount') {
-                    const amountA = parseFloat(a.amount.replace('$', ''));
-                    const amountB = parseFloat(b.amount.replace('$', ''));
-                    return amountA - amountB;
-                }
-                if (a[key] < b[key]) return -1;
-                if (a[key] > b[key]) return 1;
-                return 0;
-            });
-        },
-        searchUsers(query) {
-            this.filteredUsers = this.users.filter(user => {
-                const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
-                return fullName.includes(query.toLowerCase()) || user.email.toLowerCase().includes(query.toLowerCase());
-            });
-        },
+
+
+        searchUsers: debounce(function (query) {
+            this.searchQuery = query;
+        }, 300)
+
+
     },
 });
