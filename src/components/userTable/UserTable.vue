@@ -1,12 +1,15 @@
+
 <script>
 import './UserTableStyles.css';
 import { computed, ref } from 'vue';
 import { useUserStore } from '@/store/users';
 import StatusTabs from '../statusTabs/StatusTabs.vue';
 import UserRow from '../UserRow.vue';
+import FilterButton from "../filter/Filter.vue";
+import SearchDesign from "../search/SearchDesign.vue";
 
 export default {
-  components: { StatusTabs, UserRow },
+  components: { SearchDesign, FilterButton, StatusTabs, UserRow },
 
   setup() {
     const userStore = useUserStore();
@@ -14,7 +17,7 @@ export default {
     const searchQuery = ref('');
 
     const filteredAndSearchedUsers = computed(() => {
-      const users = userStore.filteredUsers(currentStatus.value);
+      const users = userStore.filteredUsersByStatus(currentStatus.value);
       if (!searchQuery.value) return users;
       return users.filter(user =>
           user.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
@@ -25,19 +28,24 @@ export default {
 
     const updateStatus = (status) => {
       currentStatus.value = status;
+      userStore.filterByStatus(status);
     };
 
     const markUserAsPaid = (userId) => {
       userStore.markAsPaid(userId);
     };
 
+    const onSearchDesign = (query) => {
+      searchQuery.value = query;
+    };
+
     return {
       currentStatus,
-      searchQuery,
       filteredAndSearchedUsers,
-      totalPayableAmount: computed(() => userStore.calculateTotalPayable), // Use computed
+      totalPayableAmount: computed(() => userStore.calculateTotalPayable),
       updateStatus,
-      markUserAsPaid
+      markUserAsPaid,
+      onSearchDesign
     };
   }
 }
@@ -49,15 +57,16 @@ export default {
 
     <div class="statusTab">
       <StatusTabs :currentStatus="currentStatus" @updateStatus="updateStatus" />
-      <p class="total">Total payable amount: <span class="amount"> ${{totalPayableAmount }}.00</span> <span class="dollar">USD</span></p>
-
+      <p class="total">Total payable amount: <span class="amount">${{ totalPayableAmount }}.00</span> <span class="dollar">USD</span></p>
     </div>
     <hr class="custom-divider" />
 
-
     <div class="secondDiv">
       <div class="searchDiv">
-        <input v-model="searchQuery" placeholder="Search User by Name, Email or email..." />
+        <div class="filter-container">
+          <FilterButton @filterSelected="onFilterSelected" />
+          <SearchDesign @searchDesign="onSearchDesign" />
+        </div>
       </div>
       <table>
         <thead>

@@ -1,0 +1,98 @@
+.circleIcon {
+    font-size: 0.8em;
+    color: #FFFFFF;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.selected-icon {
+    color: #6D5BD0;
+    border-color: #6D5BD0;
+}
+
+
+.filterDiv {
+    position: relative;
+
+}
+
+.filterButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 50px 8px 50px;
+    cursor: pointer;
+    color: #8b83ba;
+    border: 1px solid #8b83ba;
+    border-radius: 4px;
+
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.36px;
+
+
+
+
+
+}
+
+.filterButton:hover {
+    border-color: #6a5bb2;
+    color: #6a5bb2;
+}
+
+.filterIcon {
+    color: #8b83ba;
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 150px;
+    z-index: 10;
+}
+
+.dropdownMenu h4 {
+    margin: 8px 0 4px;
+    text-align: left;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+    letter-spacing: 0.05em;
+
+
+}
+
+.dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdownMenu li {
+    padding: 6px 0;
+    cursor: pointer;
+    color:  #25213B;
+    display: flex;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    letter-spacing: 0.05em;
+    text-align: left;
+
+}
+
+.dropdownMenu li:hover {
+    background-color: #f0f0f0;
+}

@@ -1,3 +1,14 @@
+<script>
+export default {
+  props: ['user'],
+  methods: {
+    markAsPaid(userId) {
+      this.$emit('markAsPaid', userId);
+    }
+  }
+};
+</script>
+
 <template>
   <tr>
     <td>{{ user.firstName  }}  {{ user.lastName }}  {{user.email}}</td>
@@ -15,13 +26,4 @@
   </tr>
 </template>
 
-<script>
-export default {
-  props: ['user'],
-  methods: {
-    markAsPaid(userId) {
-      this.$emit('markAsPaid', userId);
-    }
-  }
-};
-</script>
+

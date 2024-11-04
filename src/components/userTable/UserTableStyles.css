@@ -57,5 +57,18 @@
     text-align: left;
 
 }
+.searchDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 20px 10px 20px;
+}
+
+
+.filter-container {
+    display: flex;
+    flex-direction: row;
+   gap: 20px;
+}
 
 
