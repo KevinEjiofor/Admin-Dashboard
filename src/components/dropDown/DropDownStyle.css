@@ -1,0 +1,64 @@
+.dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.dropdown-content {
+
+    padding: 10px ;
+    background: #F4F2FF;
+    position: absolute;
+    z-index: 100;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    /*text-align: left;*/
+}
+
+.dropdown-icon {
+    color: #8B83BA;
+    margin-right: 5px;
+    border: 1px solid #8B83BA;
+    border-radius: 50%;
+}
+
+.activity-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.activity-table th,
+.activity-table td {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    text-align: left;
+    color: #25213B;
+}
+
+.activity-table th {
+    color: #8B83BA;
+}
+
+.activity-row {
+    cursor: pointer;
+}
+
+.activity-row:hover {
+    background-color: #F2F0F9;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+.userActivity{
+    width: 28%;
+}
+
+
+
+

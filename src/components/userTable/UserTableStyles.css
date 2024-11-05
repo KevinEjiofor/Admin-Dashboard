@@ -1,6 +1,7 @@
 .mainDiv{
     padding: 20px;
 
+
 }
 .secondDiv{
     background: #FFFFFF;
@@ -25,15 +26,51 @@
     padding-bottom: 0;
 
 }
+.custom-divider-div{
+    margin-top: -10px;
+}
 .custom-divider {
     border: none;
     border-top: 1px solid #C6C2DE;
     width: 100%;
-    margin-top: -5px ;
+
+
+}
+.custom-divider-div2{
+    margin-top: 20px;
+    margin-bottom: -15px;
+}
+.custom-divider2{
+    border: none;
+    border-top: 1px solid #C6C2DE;
+    width: 100%;
 }
 
+.vertical-line {
+    width: 1px;
+    background-color: #C6C2DE;
+    height: 7%;
+    position: absolute;
+
+    top: 0;
+    z-index: 1;
+}
+.vertical-line2{
+    width: 1px; /* Width of the line */
+    background-color: #C6C2DE; /* Color of the line */
+    height: 100%; /* Full height of the parent container */
+    position: absolute; /* Positioning context to place it correctly */
+    right: 0; /* Align with the right side of the parent container */
+    top: 0; /* Align with the top of the parent container */
+    z-index: 1;
+}
+
+
+.secondDiv {
+    position: relative; /* Make sure the parent has a positioning context */
+}
 .total {
-    font-family: Inter, sans-serif;
+    font-family: Inter;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.94px;
@@ -50,7 +87,7 @@
     Line-height: 21.78px
 }
 .dollar{
-    font-family: Inter, sans-serif;
+    font-family: Inter;
     font-size: 18px;
     font-weight: 50;
     line-height: 21.78px;
@@ -103,7 +140,7 @@ table {
 
 th, td {
     border: none;
-    padding: 10px;
+    padding: 8px;
 }
 
 thead tr {
@@ -117,7 +154,7 @@ tbody tr {
 
 
 .row{
-    font-family: Inter, sans-serif;
+    font-family: Inter;
     font-size: 12px;
     font-weight: 600;
     line-height: 14.52px;
@@ -125,12 +162,24 @@ tbody tr {
     text-align: left;
     color:#6E6893;
 
-    padding : 10px 100px 20px 150px;
+
 
 }
 .icon-cell {
     text-align: right;
 }
 .header-row {
-    background-color: #F4F2FF; /* Add this line */
+    background-color: #F4F2FF;
+}
+
+table tr th:first-child, table tr td:first-child {
+    border-left: 1px solid #C6C2DE;
+}
+
+
+table tr th:last-child, table tr td:last-child {
+    border-right: 1px solid #C6C2DE;
+}
+.vertical{
+
 }

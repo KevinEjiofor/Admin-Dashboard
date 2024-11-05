@@ -22,8 +22,10 @@ export default {
 <style>
 
 #app {
-  background-color: #F2F0F9;
-  font-family: Arial, sans-serif;
+
+
+
+  font-family: inter;
   text-align: center;
   color: #333;
 }
@@ -34,7 +36,5 @@ header {
   padding: 1rem;
 }
 
-main {
-  padding: 1rem;
-}
+
 </style>

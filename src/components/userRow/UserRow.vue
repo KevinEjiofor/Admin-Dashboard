@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faTimes, faEllipsisV,faCircle } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import './UserRowStyles.css';
+import  DropDownComponent from '../dropDown/DropDown.vue'
 
 
 library.add(faTimes, faEllipsisV,faCircle);
 
 export default {
-  components: { FontAwesomeIcon },
+  components: { FontAwesomeIcon ,DropDownComponent},
   props: ['user', 'isSelected'],
   data() {
     return {
@@ -35,12 +36,16 @@ export default {
 
 <template>
   <tr>
+
     <td>
       <input
           type="checkbox"
           :checked="isSelected"
           @change="$emit('toggleSelect')"
       />
+    </td>
+    <td>
+      <DropDownComponent/>
     </td>
     <td>
       <div class="user-name">
@@ -80,28 +85,25 @@ export default {
               :style="{
       color: user.paymentStatus === 'Paid' ? '#007F00' :
              user.paymentStatus === 'Unpaid' ? '#D30000' :
-             user.paymentStatus === 'OverDue' ? '#965E00' : '#965E00'
+             user.paymentStatus === 'OverDue' ? '#007F00' : '#965E00'
     }"
           />
           {{ user.paymentStatus }}
         </div>
-
         <div class="last-login">
-          <span>Paid on </span>
-          <span v-if="user.paymentDate">{{ user.paymentDate }}</span>
-
-          <span v-else> Dues on </span>
-          <span v-if="user.paymentDueDate">{{ user.paymentDueDate }}</span>
-
+          <span v-if="user.paymentStatus === 'Paid'">Paid on</span>
+          <span v-else>Due on</span>
+          <span>{{ user.paymentStatus === 'Paid' ? user.paymentDate : user.paymentDueDate }}</span>
         </div>
+
 
       </div>
 
     </td>
     <td>
-    <div class="user-name">
-      {{ user.amount }}
-    </div>
+      <div class="user-name">
+        {{ user.amount }}
+      </div>
       <div class="user-email"><span>
         USD
       </span></div>
@@ -131,3 +133,4 @@ export default {
     </td>
   </tr>
 </template>
+

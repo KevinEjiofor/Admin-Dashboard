@@ -1,4 +1,3 @@
-
 <script>
 import './UserTableStyles.css';
 import { computed, ref } from 'vue';
@@ -85,38 +84,42 @@ export default {
     <div class="statusTab">
       <StatusTabs :currentStatus="currentStatus" @updateStatus="updateStatus" />
       <p class="total">Total payable amount: <span class="amount">${{ totalPayableAmount }}.00</span> <span class="dollar">USD</span></p>
+
     </div>
-    <hr class="custom-divider" />
+    <div class="custom-divider-div">
+      <hr class="custom-divider" />
+    </div>
 
     <div class="secondDiv">
+      <div class="custom-divider-div2">
+        <hr class="custom-divider2" />
+      </div>
+      <div class="vertical-line"></div>
       <div class="searchDiv">
+
         <div class="filter-container">
           <FilterButton @filterSelected="onFilterSelected" />
           <SearchDesign @searchDesign="onSearchDesign" />
         </div>
         <button class="payDuesButton">Pay Dues</button>
+
       </div>
+      <div class="vertical-line2"></div>
+
       <table>
         <thead>
         <tr class="header-row">
-          <th>
-            <input
-                type="checkbox"
-                :checked="allSelected"
-                @change="toggleSelectAll"
-            />
-          </th>
+          <th><input type="checkbox" :checked="allSelected" @change="toggleSelectAll" /></th>
+          <th></th>
           <th class="row">NAME</th>
           <th class="row">USER STATUS</th>
           <th class="row">PAYMENT STATUS</th>
           <th class="row">AMOUNT</th>
-
-          <th >
-            <font-awesome-icon icon="ellipsis-v" @click="toggleOptions" style="color: #8B83BA; cursor: pointer;" />
+          <th class="icon-cell">
+            <font-awesome-icon icon="ellipsis-v" @click="toggleOptions" style="cursor: pointer;" />
           </th>
         </tr>
         </thead>
-
         <tbody>
         <template v-if="filteredAndSearchedUsers.length > 0">
           <UserRow
@@ -129,12 +132,11 @@ export default {
           />
         </template>
         <template v-else>
-          <tr>
-            <td colspan="6" class="no-records">No records found</td>
-          </tr>
+          <tr><td colspan="6" class="no-records">No records found</td></tr>
         </template>
         </tbody>
       </table>
+
     </div>
   </div>
 </template>
