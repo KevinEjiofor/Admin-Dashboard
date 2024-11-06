@@ -7,19 +7,10 @@ import UserRow from '../userRow/UserRow.vue';
 import FilterButton from "../filter/Filter.vue";
 import SearchDesign from "../search/SearchDesign.vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  methods: {
-    faChevronRight() {
-      return faChevronRight;
-    },
-    faChevronLeft() {
-      return faChevronLeft;
-    }
-  },
   components: { SearchDesign, FilterButton, StatusTabs, UserRow, FontAwesomeIcon },
-
   setup() {
     const userStore = useUserStore();
     const currentStatus = ref('All');
@@ -94,6 +85,17 @@ export default {
       }
     };
 
+    const sortBy = (column) => {
+      userStore.sortUsersBy(column);
+    };
+
+    const sortIcon = (column) => {
+      if (userStore.sortKey === column) {
+        return userStore.sortOrder === 'asc' ? faArrowDown : faArrowUp;
+      }
+      return faArrowDown; // Default icon
+    };
+
     return {
       currentStatus,
       filteredAndSearchedUsers,
@@ -113,10 +115,14 @@ export default {
       previousPage,
       startRow,
       endRow,
-      totalRows
+      totalRows,
+      sortBy,
+      sortIcon,
+      faChevronLeft,
+      faChevronRight
     };
   }
-}
+};
 </script>
 
 <template>
@@ -147,10 +153,10 @@ export default {
         <tr class="header-row">
           <th><input type="checkbox" :checked="allSelected" @change="toggleSelectAll" /></th>
           <th></th>
-          <th class="row">NAME</th>
-          <th class="row">USER STATUS</th>
-          <th class="row">PAYMENT STATUS</th>
-          <th class="row">AMOUNT</th>
+          <th class="row" @click="sortBy('firstName')">NAME</th>
+          <th class="row" @click="sortBy('userStatus')">USER STATUS</th>
+          <th class="row" @click="sortBy('paymentStatus')">PAYMENT STATUS</th>
+          <th class="row" @click="sortBy('amount')">AMOUNT</th>
           <th class="icon-cell">
             <font-awesome-icon icon="ellipsis-v" @click="toggleOptions" style="cursor: pointer;" />
           </th>
@@ -174,33 +180,28 @@ export default {
       </table>
       <div class="pagination-controls">
         <div class="counterDiv">
-
-
-        <label>Rows per page:</label>
-        <select v-model="rowsPerPage">
-          <option :value="10">10</option>
-          <option :value="20">20</option>
-          <option :value="30">30</option>
-        </select>
+          <label>Rows per page:</label>
+          <select v-model="rowsPerPage">
+            <option :value="10">10</option>
+            <option :value="20">20</option>
+            <option :value="30">30</option>
+          </select>
         </div>
         <div class="counterDiv">
           <span>{{ startRow }} to {{ endRow }} of {{ totalRows }}</span>
         </div>
-
-
         <div class="nextDIv">
           <button @click="previousPage" :disabled="currentPage === 1">
-            <font-awesome-icon :icon="faChevronLeft()" />
+            <font-awesome-icon :icon="faChevronLeft" />
           </button>
           <button @click="nextPage" :disabled="currentPage * rowsPerPage >= filteredAndSearchedUsers.length">
-            <font-awesome-icon :icon="faChevronRight()" />
+            <font-awesome-icon :icon="faChevronRight" />
           </button>
         </div>
       </div>
       <div class="custom-divider-div3">
         <hr class="custom-divider" />
       </div>
-
     </div>
   </div>
 </template>

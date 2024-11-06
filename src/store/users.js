@@ -32,6 +32,8 @@ export const useUserStore = defineStore('userStore', {
         ],
         currentStatus: 'All',
         searchQuery: '',
+        sortKey: 'firstName',
+        sortOrder: 'asc'
     }),
 
     getters: {
@@ -46,15 +48,38 @@ export const useUserStore = defineStore('userStore', {
                     user.email.toLowerCase().includes(state.searchQuery.toLowerCase())
                 );
             }
-            return users;
-        },
+        //     let users = state.currentStatus === 'All'
+        //         ? state.users
+        //         : state.users.filter(user => user.paymentStatus === state.currentStatus);
+        //
+        //     if (state.searchQuery) {
+        //         users = users.filter(user =>
+        //             `${user.firstName} ${user.lastName}`.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+        //             user.email.toLowerCase().includes(state.searchQuery.toLowerCase())
+        //         );
+        //     }
+        //     return users;
 
+        users.sort((a, b) => {
+            const valueA = a[state.sortKey];
+            const valueB = b[state.sortKey];
+
+            if (state.sortOrder === 'asc') {
+                return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+            } else {
+                return valueA < valueB ? 1 : valueA > valueB ? -1 : 0;
+            }
+        });
+
+        return users;
+    },
         calculateTotalPayable: (state) => {
             return state.users
                 .filter(user => user.paymentStatus === 'Unpaid' || user.paymentStatus === 'Overdue')
                 .reduce((total, user) => total + parseFloat(user.amount.replace('$', '')), 0);
         }
     },
+
     actions: {
         filterByStatus(status) {
             this.currentStatus = status;
@@ -70,8 +95,15 @@ export const useUserStore = defineStore('userStore', {
 
         searchUsers: debounce(function (query) {
             this.searchQuery = query;
-        }, 300)
+        }, 300),
 
-
+        sortUsersBy(key) {
+            if (this.sortKey === key) {
+                this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'; // Toggle sort order
+            } else {
+                this.sortKey = key;
+                this.sortOrder = 'asc'; // Default to ascending order when a new field is selected
+            }
+        },
     },
 });
