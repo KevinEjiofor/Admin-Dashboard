@@ -46,7 +46,7 @@ export default {
     </td>
     <td>
 
-      <DropDownComponent/>
+      <DropDownComponent />
     </td>
     <td>
       <div class="user-name">

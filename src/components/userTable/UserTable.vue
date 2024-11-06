@@ -6,9 +6,18 @@ import StatusTabs from '../statusTabs/StatusTabs.vue';
 import UserRow from '../userRow/UserRow.vue';
 import FilterButton from "../filter/Filter.vue";
 import SearchDesign from "../search/SearchDesign.vue";
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // Make sure you import this if needed
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 export default {
+  methods: {
+    faChevronRight() {
+      return faChevronRight;
+    },
+    faChevronLeft() {
+      return faChevronLeft;
+    }
+  },
   components: { SearchDesign, FilterButton, StatusTabs, UserRow, FontAwesomeIcon },
 
   setup() {
@@ -16,13 +25,27 @@ export default {
     const currentStatus = ref('All');
     const searchQuery = ref('');
     const selectedUsers = ref([]);
+    const currentPage = ref(1); // Track the current page
+    const rowsPerPage = ref(10); // Number of rows per page
 
     const filteredAndSearchedUsers = computed(() => userStore.filteredAndSearchedUsers);
 
-    // Check if all users are selected
+    const paginatedUsers = computed(() => {
+      const start = (currentPage.value - 1) * rowsPerPage.value;
+      const end = start + rowsPerPage.value;
+      return filteredAndSearchedUsers.value.slice(start, end);
+    });
+
+    const startRow = computed(() => (currentPage.value - 1) * rowsPerPage.value + 1);
+    const endRow = computed(() => {
+      const end = currentPage.value * rowsPerPage.value;
+      return end > filteredAndSearchedUsers.value.length ? filteredAndSearchedUsers.value.length : end;
+    });
+    const totalRows = computed(() => filteredAndSearchedUsers.value.length);
+
     const allSelected = computed(() => {
-      return filteredAndSearchedUsers.value.length > 0 &&
-          selectedUsers.value.length === filteredAndSearchedUsers.value.length;
+      return paginatedUsers.value.length > 0 &&
+          selectedUsers.value.length === paginatedUsers.value.length;
     });
 
     const updateStatus = (status) => {
@@ -51,13 +74,24 @@ export default {
       if (allSelected.value) {
         selectedUsers.value = [];
       } else {
-        selectedUsers.value = filteredAndSearchedUsers.value.map(user => user.id);
+        selectedUsers.value = paginatedUsers.value.map(user => user.id);
       }
     };
 
     const toggleOptions = () => {
-      // Handle the options dropdown or any action
       console.log('Toggle options clicked');
+    };
+
+    const nextPage = () => {
+      if (currentPage.value * rowsPerPage.value < filteredAndSearchedUsers.value.length) {
+        currentPage.value += 1;
+      }
+    };
+
+    const previousPage = () => {
+      if (currentPage.value > 1) {
+        currentPage.value -= 1;
+      }
     };
 
     return {
@@ -71,7 +105,15 @@ export default {
       toggleSelectUser,
       toggleSelectAll,
       toggleOptions,
-      selectedUsers
+      selectedUsers,
+      paginatedUsers,
+      rowsPerPage,
+      currentPage,
+      nextPage,
+      previousPage,
+      startRow,
+      endRow,
+      totalRows
     };
   }
 }
@@ -80,32 +122,26 @@ export default {
 <template>
   <div class="mainDiv">
     <h2 class="topH2">Table Heading</h2>
-
     <div class="statusTab">
       <StatusTabs :currentStatus="currentStatus" @updateStatus="updateStatus" />
       <p class="total">Total payable amount: <span class="amount">${{ totalPayableAmount }}.00</span> <span class="dollar">USD</span></p>
-
     </div>
     <div class="custom-divider-div">
       <hr class="custom-divider" />
     </div>
-
     <div class="secondDiv">
       <div class="custom-divider-div2">
         <hr class="custom-divider2" />
       </div>
       <div class="vertical-line"></div>
       <div class="searchDiv">
-
         <div class="filter-container">
           <FilterButton @filterSelected="onFilterSelected" />
           <SearchDesign @searchDesign="onSearchDesign" />
         </div>
         <button class="payDuesButton">Pay Dues</button>
-
       </div>
       <div class="vertical-line2"></div>
-
       <table>
         <thead>
         <tr class="header-row">
@@ -121,9 +157,9 @@ export default {
         </tr>
         </thead>
         <tbody>
-        <template v-if="filteredAndSearchedUsers.length > 0">
+        <template v-if="paginatedUsers.length > 0">
           <UserRow
-              v-for="user in filteredAndSearchedUsers"
+              v-for="user in paginatedUsers"
               :key="user.id"
               :user="user"
               :isSelected="selectedUsers.includes(user.id)"
@@ -136,6 +172,34 @@ export default {
         </template>
         </tbody>
       </table>
+      <div class="pagination-controls">
+        <div class="counterDiv">
+
+
+        <label>Rows per page:</label>
+        <select v-model="rowsPerPage">
+          <option :value="10">10</option>
+          <option :value="20">20</option>
+          <option :value="30">30</option>
+        </select>
+        </div>
+        <div class="counterDiv">
+          <span>{{ startRow }} to {{ endRow }} of {{ totalRows }}</span>
+        </div>
+
+
+        <div class="nextDIv">
+          <button @click="previousPage" :disabled="currentPage === 1">
+            <font-awesome-icon :icon="faChevronLeft()" />
+          </button>
+          <button @click="nextPage" :disabled="currentPage * rowsPerPage >= filteredAndSearchedUsers.length">
+            <font-awesome-icon :icon="faChevronRight()" />
+          </button>
+        </div>
+      </div>
+      <div class="custom-divider-div3">
+        <hr class="custom-divider" />
+      </div>
 
     </div>
   </div>

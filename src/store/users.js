@@ -13,7 +13,22 @@ export const useUserStore = defineStore('userStore', {
             { id: 7, firstName: 'Mira', lastName: 'Levin', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Unpaid', amount: '$200', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '15/APR/2020' },
             { id: 8, firstName: 'Lincoln', lastName: 'Levin', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Paid', amount: '$370', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
             { id: 9, firstName: 'Phillip', lastName: 'Saris', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Unpaid', amount: '$200', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '15/APR/2020' },
-            { id: 10, firstName: 'Cheyenne', lastName: 'Ekstrom Bothman', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$150', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null }
+            { id: 10, firstName: 'Cheyenne', lastName: 'Ekstrom Bothman', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$150', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
+            { id: 11, firstName: 'Oscar', lastName: 'Stewart', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Overdue', amount: '$310', lastLogin: '12/APR/2020', paymentDate: null, paymentDueDate: '17/APR/2020' },
+            { id: 12, firstName: 'Clara', lastName: 'Montoya', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$460', lastLogin: '11/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
+            { id: 13, firstName: 'Drew', lastName: 'Hanson', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Paid', amount: '$390', lastLogin: '10/APR/2020', paymentDate: '13/APR/2020', paymentDueDate: null },
+
+            { id: 14, firstName: 'Skylar', lastName: 'Watts', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Unpaid', amount: '$210', lastLogin: '15/APR/2020', paymentDate: null, paymentDueDate: '20/APR/2020' },
+            { id: 15, firstName: 'Adrian', lastName: 'Moss', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Overdue', amount: '$550', lastLogin: '13/APR/2020', paymentDate: null, paymentDueDate: '16/APR/2020' },
+
+            { id: 16, firstName: 'Rowan', lastName: 'Cook', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$250', lastLogin: '12/APR/2020', paymentDate: '16/APR/2020', paymentDueDate: null },
+            { id: 17, firstName: 'Mira', lastName: 'Levin', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Unpaid', amount: '$200', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '15/APR/2020' },
+            { id: 18, firstName: 'Lincoln', lastName: 'Levin', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Paid', amount: '$370', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
+            { id: 19, firstName: 'Phillip', lastName: 'Saris', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Unpaid', amount: '$200', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '15/APR/2020' },
+            { id: 20, firstName: 'Cheyenne', lastName: 'Ekstrom Bothman', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$150', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
+            { id: 21, firstName: 'Oscar', lastName: 'Stewart', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Overdue', amount: '$310', lastLogin: '12/APR/2020', paymentDate: null, paymentDueDate: '17/APR/2020' },
+            { id: 22, firstName: 'Jaxson', lastName: 'Siphron', email: 'example@email.com', userStatus: 'Inactive', paymentStatus: 'Paid', amount: '$750', lastLogin: '14/APR/2020', paymentDate: '15/APR/2020', paymentDueDate: null },
+            { id: 40, firstName: 'Jamie', lastName: 'Bennett', email: 'example@email.com', userStatus: 'Active', paymentStatus: 'Unpaid', amount: '$325', lastLogin: '14/APR/2020', paymentDate: null, paymentDueDate: '19/APR/2020' },
         ],
         currentStatus: 'All',
         searchQuery: '',
@@ -52,7 +67,6 @@ export const useUserStore = defineStore('userStore', {
                 user.amount = '$0';
             }
         },
-
 
         searchUsers: debounce(function (query) {
             this.searchQuery = query;

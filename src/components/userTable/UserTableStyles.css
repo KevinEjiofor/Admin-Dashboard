@@ -36,6 +36,12 @@
     width: 100%;
 
 
+
+}
+.custom-divider-div3{
+
+    margin-top: -20px;
+
 }
 .custom-divider-div2{
     margin-top: 20px;
@@ -50,7 +56,7 @@
 .vertical-line {
     width: 1px;
     background-color: #C6C2DE;
-    height: 7%;
+    height: 100%;
     position: absolute;
 
     top: 0;
@@ -180,4 +186,68 @@ table tr th:first-child, table tr td:first-child {
 
 table tr th:last-child, table tr td:last-child {
     border-right: 1px solid #C6C2DE;
+}
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 185px;
+    justify-content: flex-end;
+    padding-top: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px    ;
+    background:  #F4F2FF;
+;
+}
+
+.pagination-controls label,
+.pagination-controls select,
+.pagination-controls button {
+    display: flex;
+    align-items: center;
+}
+.pagination-controls select{
+    border: none ;
+    background: #FFFFFF;
+    color: #6E6893;
+}
+.counterDiv{
+    display: flex;
+    flex-direction: row;
+}
+.nextDIv{
+    display: flex;
+    flex-direction: row;
+    margin-top: -30px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    background: #6E6893;
+    color: #FFFFFF;
+    border-radius: 4px;
+
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+select {
+    padding: 5px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6E6893;
+    border: 1px solid #6E6893;
+    border-radius: 4px;
+
+    background-color:  #F4F2FF;
+    transition: background-color 0.3s ease;
+}
+
+
+select:hover {
+    background-color: #F4F2FF;
 }
