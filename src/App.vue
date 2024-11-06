@@ -3,18 +3,18 @@
 
     <main>
 
-      <UserTable />
+      <AdminTable />
     </main>
   </div>
 </template>
 
 <script>
-import UserTable from './components/userTable/UserTable.vue';
+import AdminTable from "@/adminPage/adminTable/AdminTable.vue";
 
 export default {
   name: 'App',
   components: {
-    UserTable,
+    AdminTable,
   },
 };
 </script>

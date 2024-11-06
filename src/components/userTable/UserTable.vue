@@ -16,8 +16,8 @@ export default {
     const currentStatus = ref('All');
     const searchQuery = ref('');
     const selectedUsers = ref([]);
-    const currentPage = ref(1); // Track the current page
-    const rowsPerPage = ref(10); // Number of rows per page
+    const currentPage = ref(1);
+    const rowsPerPage = ref(10);
 
     const filteredAndSearchedUsers = computed(() => userStore.filteredAndSearchedUsers);
 
