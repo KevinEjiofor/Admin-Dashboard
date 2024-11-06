@@ -2,6 +2,7 @@
     padding: 20px;
 
 
+
 }
 .secondDiv{
     background: #FFFFFF;
@@ -56,18 +57,18 @@
     z-index: 1;
 }
 .vertical-line2{
-    width: 1px; /* Width of the line */
-    background-color: #C6C2DE; /* Color of the line */
-    height: 100%; /* Full height of the parent container */
-    position: absolute; /* Positioning context to place it correctly */
-    right: 0; /* Align with the right side of the parent container */
-    top: 0; /* Align with the top of the parent container */
+    width: 1px;
+    background-color: #C6C2DE;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
     z-index: 1;
 }
 
 
 .secondDiv {
-    position: relative; /* Make sure the parent has a positioning context */
+    position: relative;
 }
 .total {
     font-family: Inter;
@@ -179,7 +180,4 @@ table tr th:first-child, table tr td:first-child {
 
 table tr th:last-child, table tr td:last-child {
     border-right: 1px solid #C6C2DE;
-}
-.vertical{
-
 }
